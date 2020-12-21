@@ -1,0 +1,4 @@
+template_dir: "_build/templates"
+template_dir: "."
+optimization:
+  rm_whitespace: true
