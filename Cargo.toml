@@ -9,6 +9,7 @@ edition = "2018"
 [dependencies]
 actix-web = "3"
 sailfish = "0.3.0"
+anyhow = "1.0.0"
 
 [build-dependencies]
 sailfish = "0.3.0"

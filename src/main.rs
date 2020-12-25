@@ -1,23 +1,23 @@
-use actix_web::{get, web, App, HttpServer, HttpResponse, Responder};
+use actix_web::{get, web, App, HttpResponse, HttpServer, Responder};
 use sailfish::TemplateOnce;
 
 #[derive(TemplateOnce)]
 #[template(path = "_build/templates/aah.html")]
 struct HelloTemplate {
     name: String,
-    layout_title: String
+    layout_title: String,
 }
 
 #[get("/{name}")]
 async fn index(web::Path(name): web::Path<String>) -> impl Responder {
     let ctx = HelloTemplate {
-      name: name,
-      layout_title: "The title!".into()
+        name: name,
+        layout_title: "The title!".into(),
     };
 
     HttpResponse::Ok()
-      .content_type("text/html")
-      .body(ctx.render_once().unwrap())
+        .content_type("text/html")
+        .body(ctx.render_once().unwrap())
 }
 
 #[actix_web::main]
