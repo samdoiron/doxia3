@@ -1,6 +1,8 @@
 use actix_web::{get, web, App, HttpResponse, HttpServer, Responder};
 use sailfish::TemplateOnce;
 
+mod create_page;
+
 #[derive(TemplateOnce)]
 #[template(path = "_build/templates/aah.html")]
 struct HelloTemplate {
