@@ -16,10 +16,19 @@ pub struct Page {
     body: Body,
 }
 
-pub fn create_page(request: CreatePage) -> Result<(), &'static str> {
+pub trait CreatePageGateway {
+    fn create_page(&mut self, _: Page) -> Result<(), &'static str>;
+}
+
+pub fn create_page(mut gateway: impl CreatePageGateway, request: CreatePage) -> Result<(), &'static str> {
     let title = validate_title(request.title)?;
     let body = validate_body(request.body)?;
-    Ok(())
+    let page = Page {
+        title,
+        body,
+    };
+
+    gateway.create_page(page)
 }
 
 fn validate_title(title: String) -> Result<Title, &'static str> {
@@ -43,9 +52,16 @@ fn validate_body(body: String) -> Result<Body, &'static str> {
 mod tests {
     use super::*;
 
+    struct BlackHoleGateway;
+    impl CreatePageGateway for BlackHoleGateway {
+        fn create_page(&mut self, _: Page) -> Result<(), &'static str> {
+            Ok(())
+        }
+    }
+
     #[test]
     fn title_cannot_be_empty() {
-        let result = create_page(CreatePage {
+        let result = create_page(BlackHoleGateway, CreatePage {
             title: "".to_owned(),
             body: "foo".to_owned(),
         });
@@ -54,13 +70,13 @@ mod tests {
 
     #[test]
     fn title_cannot_be_too_long() {
-        let bit_too_long = create_page(CreatePage {
+        let bit_too_long = create_page(BlackHoleGateway, CreatePage {
             title: "a".repeat(256),
             body: "foo".to_owned(),
         });
         assert_eq!(Err("Title cannot be over 255 characters"), bit_too_long);
 
-        let just_barely_ok = create_page(CreatePage {
+        let just_barely_ok = create_page(BlackHoleGateway, CreatePage {
             title: "a".repeat(255),
             body: "foo".to_owned(),
         });
@@ -69,7 +85,7 @@ mod tests {
 
     #[test]
     fn body_cannot_be_empty() {
-        let result = create_page(CreatePage {
+        let result = create_page(BlackHoleGateway, CreatePage {
             title: "foo".to_owned(),
             body: "".to_owned(),
         });
