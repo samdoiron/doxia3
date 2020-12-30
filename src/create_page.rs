@@ -4,17 +4,39 @@ pub struct CreatePage {
     body: String,
 }
 
+#[derive(Debug, PartialEq, Eq)]
+struct Title(String);
+
+#[derive(Debug, PartialEq, Eq)]
+struct Body(String);
+
+#[derive(Debug, PartialEq, Eq)]
+pub struct Page {
+    title: Title,
+    body: Body,
+}
+
 pub fn create_page(request: CreatePage) -> Result<(), &'static str> {
-    if request.title.is_empty() {
+    let title = validate_title(request.title)?;
+    let body = validate_body(request.body)?;
+    Ok(())
+}
+
+fn validate_title(title: String) -> Result<Title, &'static str> {
+    if title.is_empty() {
         return Err("Title cannot be empty");
     }
-    if request.title.len() > 255 {
+    if title.len() > 255 {
         return Err("Title cannot be over 255 characters");
     }
-    if request.body.is_empty() {
+    Ok(Title(title))
+}
+
+fn validate_body(body: String) -> Result<Body, &'static str> {
+    if body.is_empty() {
         return Err("Body cannot be empty");
     }
-    Ok(())
+    Ok(Body(body))
 }
 
 #[cfg(test)]
