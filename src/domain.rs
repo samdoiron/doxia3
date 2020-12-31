@@ -1,4 +1,4 @@
-#[derive(Debug, PartialEq, Eq, Clone)]
+#[derive(Debug, PartialEq, Eq, Clone, Hash)]
 pub struct Title(String);
 
 impl Title {
@@ -27,3 +27,8 @@ impl Body {
 }
 
 
+#[derive(Debug, PartialEq, Eq)]
+pub struct Page {
+    pub title: Title,
+    pub body: Body,
+}
