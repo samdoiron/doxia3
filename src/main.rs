@@ -3,6 +3,7 @@ use sailfish::TemplateOnce;
 
 mod create_page;
 mod domain;
+mod in_memory;
 mod list_pages;
 
 #[derive(TemplateOnce)]

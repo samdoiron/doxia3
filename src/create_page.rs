@@ -1,15 +1,9 @@
-use crate::domain::{Title, Body};
+use crate::domain::{Title, Body, Page};
 
 #[derive(Debug)]
 pub struct CreatePage {
     title: String,
     body: String,
-}
-
-#[derive(Debug, PartialEq, Eq)]
-pub struct Page {
-    title: Title,
-    body: Body,
 }
 
 pub trait CreatePageGateway {
@@ -26,7 +20,6 @@ pub fn create_page(mut gateway: impl CreatePageGateway, request: CreatePage) -> 
 
     gateway.create_page(page)
 }
-
 
 #[cfg(test)]
 mod tests {

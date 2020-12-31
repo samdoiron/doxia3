@@ -2,8 +2,8 @@ use crate::domain::{Title, Body};
 
 #[derive(Debug, PartialEq, Eq, Clone)]
 pub struct ListedPage {
-    title: Title,
-    body: Body,
+    pub title: Title,
+    pub body: Body,
 }
 
 pub trait ListPagesGateway {
