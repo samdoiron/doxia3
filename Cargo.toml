@@ -1,7 +1,7 @@
 [package]
 name = "doxia"
 version = "0.1.0"
-authors = ["Samuel Doiron <sam.doiron96@gmail.com>"]
+authors = ["Samuel Doiron <sam.doiron96@gmail.com>", "Sabrina Gannon <sabrinagannon@icloud.com>"]
 edition = "2018"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
@@ -13,6 +13,9 @@ anyhow = "1.0.0"
 
 [build-dependencies]
 sailfish = "0.3.0"
+
+[dev-dependancies]
+cargo-watch = "7.5.0"
 
 [dependencies.tera]
 version = "1"
