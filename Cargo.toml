@@ -14,7 +14,7 @@ anyhow = "1.0.0"
 [build-dependencies]
 sailfish = "0.3.0"
 
-[dev-dependancies]
+[dev-dependencies]
 cargo-watch = "7.5.0"
 
 [dependencies.tera]
